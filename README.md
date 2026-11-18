@@ -26,12 +26,11 @@
 
 ### 预测图
 
-`results/predictions/`：绿色 = GT，红色 = 模型预测（conf ≥ 0.7）。
-
-- `01_good_1191.jpg`、`02_good_1419.jpg`：正常检出、四点贴合。
-- `03_dim_1339.jpg`：熄灭装甲（训练样本极少）漏检示例。
-- `04_base_3319.jpg`：基地（训练样本极少）漏检示例。
-- `05_small_4763.jpg`：远处 8×8 px 小目标示例。
+![](results/predictions/01_good_1191.jpg)
+![](results/predictions/02_good_1419.jpg)
+![](results/predictions/03_dim_1339.jpg)
+![](results/predictions/04_base_3319.jpg)
+![](results/predictions/05_small_4763.jpg)
 
 ## 仓库结构
 
