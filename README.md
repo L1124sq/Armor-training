@@ -29,15 +29,13 @@
 ![](results/predictions/01_good_1191.jpg)
 ![](results/predictions/02_good_1419.jpg)
 ![](results/predictions/03_dim_1339.jpg)
-![](results/predictions/04_base_3319.jpg)
-![](results/predictions/05_small_4763.jpg)
 
 ## 仓库结构
 
 ```text
 ├── setup_upstream.sh          # clone 官方 YOLOv5，切到固定 commit，再覆盖本仓库文件
 ├── requirements.txt
-├── overrides/                 # 我们自己的代码/配置，覆盖到官方 YOLOv5 上
+├── overrides/                 # 自己写的代码/配置，覆盖到官方 YOLOv5 上
 │   ├── models/yolo.py         # DetectKpt 头（唯一修改的上游文件）
 │   ├── models/yolov5s-kpt22.yaml
 │   ├── data/hyps/hyp.kpt22.yaml
@@ -128,7 +126,7 @@ LabelMaster 的 10 值格式（`x1 y1 ... x4 y4 tag_id color_id`）需要先转�
 - **训练**：`train_kpt.py`，SGD、warmup、cosine、AMP、EMA、早停、断点续训。
 - **导出**：`export_kpt_onnx.py`，ONNX opset 13，输出断言 `[1,25200,13+NC]`。
 
-## 27 部署约定
+## 27赛季自瞄仓库部署约定
 
 - 输入：`1×3×640×640`，27 用 OpenVINO PrePostProcessor 把 u8 BGR 转 f32 RGB/255。
 - 输出：`[1,25200,22]`（NC=9）；通道 `0..7` 四点、`8` obj、`9..12` 颜色、`13..21` 类别。
@@ -145,8 +143,3 @@ LabelMaster 的 10 值格式（`x1 y1 ... x4 y4 tag_id color_id`）需要先转�
 - **域差异**：只在 GMaster 赛场视频帧上评估；仿真渲染、新相机、真机都未充分验证。
 - **速度**：YOLOv5s 比旧 n 慢约 2.7 倍；CPU 延迟需按目标 hardware 实测。
 - 没有做消融实验；上面“改了什么”是设计理由，不代表单项贡献。
-
-## 许可与数据
-
-- 代码是 Ultralytics YOLOv5（AGPL-3.0）的派生作品，保留 `LICENSE` 和上游版权声明；公开使用请遵守 AGPL。
-- `results/predictions/` 的图片来自 GMaster2023 数据集，仅用于模型评估展示，版权归原数据集作者。
