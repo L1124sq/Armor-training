@@ -1,0 +1,24 @@
+# Generated upstream checkout
+upstream/
+
+# Training runs, datasets, environments
+runs/
+datasets/
+venvs/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Model / export artifacts (use GitHub Releases)
+*.pt
+*.pth
+*.onnx
+*.xml
+*.bin
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/

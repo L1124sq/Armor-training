@@ -1,0 +1,41 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+# Hyperparameters for RoboMaster armor 4-point (DetectKpt) training: python train_kpt.py --hyp data/hyps/hyp.kpt22.yaml
+# Optimizer/schedule follow hyp.scratch-low.yaml (SGD, cosine to lr0 * lrf, 3-epoch warmup); no flips (mirrored digits).
+
+lr0: 0.01 # initial learning rate (SGD)
+lrf: 0.01 # final learning rate = lr0 * lrf (cosine)
+momentum: 0.937 # SGD momentum
+weight_decay: 0.0005 # scaled by batch * accumulate / 64
+warmup_epochs: 3.0
+warmup_momentum: 0.8
+warmup_bias_lr: 0.1
+
+# loss gains (components are unweighted means; total is multiplied by batch size like YOLOv5)
+obj: 1.0 # objectness BCE, level balance 4.0 / 1.0 / 0.4
+obj_gr: 0.5 # positive obj target = (1 - gr) + gr * OKS (quality-aware, keeps good armors above 27's 0.7 gate)
+kpt: 0.2 # 4-point L1 / sqrt(GT point-box area)
+oks: 0.2 # 1 - OKS
+box: 0.05 # 1 - CIoU of the point boxes
+cls: 0.15 # class cross-entropy
+color: 0.15 # color cross-entropy
+geo: 0.05 # edge parallelism + aspect ratio vs GT
+label_smoothing: 0.0
+
+# assignment
+anchor_t: 4.0 # anchor / GT box wh ratio limit
+topk: 10 # positives per GT
+align_alpha: 0.5 # t = sigmoid(obj)^alpha * OKS^beta
+align_beta: 4.0
+oks_sigma: 0.25 # ultralytics default for custom keypoints (1 / nkpt)
+
+# augmentation (keypoints follow every geometric transform exactly)
+hsv_h: 0.015
+hsv_s: 0.5
+hsv_v: 0.35
+degrees: 5.0
+translate: 0.1
+scale: 0.5
+shear: 2.0
+perspective: 0.0005
+mosaic: 1.0 # probability; disabled for the last --close-mosaic epochs
+blur: 0.2 # motion-blur probability
