@@ -1,8 +1,8 @@
 # Armor Training — YOLOv5s 四点装甲检测
 
-2026-11-13。队内第一套可复现的装甲四点训练管线：标注格式 → PyTorch 训练 → 验证 → ONNX → OpenVINO，输出直接接 27 仓库的 `yolov5.cpp`（`[1,25200,22]`）。
+流程：标注格式 → PyTorch 训练 → 验证 → ONNX → OpenVINO，输出直接接 27 自瞄仓库的 `yolov5.cpp`（`[1,25200,22]`）。
 
-> 当前模型是 **GMaster2023 旧装甲**上的 baseline，不是 2027 新装甲的最终模型。新装甲数据到位后从 `best.pt` 微调即可。
+> 当前模型是 **GMaster2023 旧装甲板**上的 baseline，不是 2027 新装甲板的最终模型。新装甲板数据到位后从 `best.pt` 微调即可。
 
 ## 结果
 
@@ -50,7 +50,6 @@
 └── LICENSE                    # AGPL-3.0（YOLOv5 派生）
 ```
 
-官方 YOLOv5 **不 vendored 进仓库**；`setup_upstream.sh` 固定到 commit `9777cd0`，再把 `overrides/` 覆盖进去。
 
 ## 快速开始
 
@@ -152,4 +151,3 @@ LabelMaster 的 10 值格式（`x1 y1 ... x4 y4 tag_id color_id`）需要先转�
 
 - 代码是 Ultralytics YOLOv5（AGPL-3.0）的派生作品，保留 `LICENSE` 和上游版权声明；公开使用请遵守 AGPL。
 - `results/predictions/` 的图片来自 GMaster2023 数据集，仅用于模型评估展示，版权归原数据集作者。
-- 模型权重（`.pt`）和 ONNX/IR 不放在普通 git 中，建议用 GitHub Releases 发布；数据集不打进仓库。
